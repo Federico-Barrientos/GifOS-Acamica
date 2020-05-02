@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!-- CORE CSS -->
+    <link rel="stylesheet" href="style/light-theme.css">
+    <link rel="stylesheet" href="style/dark-theme.css">    
+    <link rel="stylesheet" href="style/style.css">   
+<!-- FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Chakra+Petch:400,700&display=swap" rel="stylesheet">
+
+    <title>gifOS</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+    <header>
+        <div class="container">
+            <h1>¡Bienvenidos/as a Guifos.com! ——————Donde los gifs están.////// Número de visitas: 12.765.803</h1>
+        </div>
+    </header>
+
+<!-- MAIN -->
+    <section class="main">
+        <div class="container">
+            <div class="main-top">          
+                <a href="index.html" class="gifos-logo" id="gif-logo"></a>
+                <div class="main-right">
+                    <button class="create-btn">Crear Gifos</button>
+                    <div class="dropdown-menu">
+                        <button id="toggle-theme" class="dropdown-btn" onclick="toggleThemesMenu()">
+                                <div class="dropdown-text">Elegir tema</div>
+                                <div class="dropdown-arrow"><img src="img/dropdown.svg" alt=""></div>
+                        </button>
+                        <div class="dropdown-cont" id="drop-sailor">
+                            <ul class="">
+                                <li><button id="light-sailor" onclick="sailorLight()">Sailor Day</button></li>
+                                <li><button id="dark-sailor" onclick="sailorDark()">Sailor Night</button> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="#" style="color: #B4B4B4"><u>M</u>is Gifos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="gif-captura">
+        <div class="gif-captura-box">
+            <div class="gif-captura-head">
+                <h5>Crear Gifos</h5>
+            </div>
+            <div>
+                <div class="gif-captura-top">
+                    <img src="img/window img.png" alt="">
+                    <h6>Aqui podras crear tus propios gifos</h6>
+                </div>
+                <div class="gif-captura-middle">
+                    <p>
+                        Crear tu <i><b>guifo</b></i> es muy fácil, graba cualquier imagen con tu cámara y obtén guifos personalizados. Los pasos para crear tu guifo son:
+                    </p>
+                    <br>
+                    <ul>
+                        <li><b>1)</b> Dar permisos de acceso a la cámara (sólo por el tiempo de uso)</li><br>
+                        <li><b>2)</b> Capturar tu momento guifo</li><br>
+                        <li><b>3)</b> Revisar el momento</li><br>
+                        <li><b>4)</b> Listo para subir y compartir!</li><br>
+                    </ul>
+                    <p>
+                        ¿Quieres comenzar a crear tu guifo ahora?
+                    </p>  
+                </div>
+                <div class="gif-captura-bottom">
+                    <button>Cancelar</button>
+                    <button>Comenzar</button>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+<!-- MIS GIFOS -->
+    <!-- <section class="tendencias">
+        <div class="container">
+            <div class="sugerencias-top">
+                <h3>Mis gifos</h3>
+            </div>
+
+            <div class="gifs-sugerencias">
+                <div class="gif-sugerido">
+                    <div class="gif">
+                        <iframe src="https://giphy.com/embed/KZfdN1ZrGf5FOZsFTO" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                    </div>
+                </div>
+
+                <div class="gif-sugerido">
+                    <div class="gif">
+                        <iframe src="https://giphy.com/embed/fwWjxNd7evZzRsjgzt" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p>
+                    </div>
+                </div>
+
+                <div class="gif-sugerido">
+                    <div class="gif">
+                        <iframe src="https://giphy.com/embed/cdHZH8PdPUZ8gk0m2k" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                    </div>
+                </div>
+
+                <div class="gif-sugerido">
+                    <div class="gif">
+                        <iframe src="https://giphy.com/embed/3DAr0Tqv7knsXjH9tN" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gifs-sugerencias">
+                <div class="gif-sugerido">
+                    <div class="gif">
+                        <iframe src="https://giphy.com/embed/LfTTSO16Fbmgg" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                    </div>
+                </div>
+
+                <div class="gif-sugerido">
+                    <div class="gif">
+                        <iframe src="https://giphy.com/embed/5zhbxWGRxraphHTUqV" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p>
+                    </div>
+                </div>
+
+                <div class="gif-sugerido">
+                    <div class="gif">
+                        <iframe src="https://giphy.com/embed/4QEQkaLVHXOMqebyue" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                    </div>
+                </div>
+
+                <div class="gif-sugerido">
+                    <div class="gif">
+                        <iframe src="https://giphy.com/embed/SEB7DKZLOjcAM" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gifs-sugerencias">
+                <div class="gif-sugerido">
+                    <div class="gif">
+                        <iframe src="https://giphy.com/embed/9rWO4z676prk4" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                    </div>
+                </div>
+
+                <div class="gif-sugerido">
+                    <div class="gif">
+                        <iframe src="https://giphy.com/embed/sRirXOIam0U00" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p>
+                    </div>
+                </div>
+
+                <div class="gif-sugerido">
+                    <div class="gif">
+                        <iframe src="https://giphy.com/embed/KxiRwO7tqXCTDVKobo" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                    </div>
+                </div>
+
+                <div class="gif-sugerido">
+                    <div class="gif">
+                        <iframe src="https://giphy.com/embed/12rpiwcsMCWsoM" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section> -->
+
+<script src="js/app.js"></script>   
+</body>
+
+</html>

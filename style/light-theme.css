@@ -1,0 +1,18 @@
+:root[theme="light"]{
+    --bg: #fff4fd;
+    --gradient1:#F7C9F3;
+    --gradient2:#4180F6;
+    --mainFont: 'Chakra Petch', sans-serif;
+    --white: #FFFFFF;
+    --letter-color: #110038;
+    --grey: #E6E6E6;
+    --grey-text:#B4B4B4;
+    --logo:url(../img/gifOF_logo.png);
+    --lupa:url(../img/lupa_inactive.svg);
+    --li-bg: #F0F0F0;
+    --btn-active: #F7C9F3;
+    --lupa-active: url(../img/lupa.svg);
+    --btn-text: black;
+    --camera:url(../img/camera_light.svg);
+}
+

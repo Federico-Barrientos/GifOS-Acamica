@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" theme="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!-- CORE CSS -->
+    <link rel="stylesheet" href="style/light-theme.css">
+    <link rel="stylesheet" href="style/dark-theme.css">    
+    <link rel="stylesheet" href="style/style.css">   
+<!-- FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Chakra+Petch:400,700&display=swap" rel="stylesheet">
+
+    <title>gifOS</title>
+
+</head>
+<body>
+<!-- HEADER -->
+    <header>
+        <div class="container">
+            <h1>¡Bienvenidos/as a Guifos.com! ——————Donde los gifs están.////// Número de visitas: 12.765.803</h1>
+        </div>
+    </header>
+
+<!-- MAIN -->
+    <section class="main">
+        <div class="container" id="main" >
+            <div class="main-top">
+                <span class="gifos-logo" id="gif-logo" ></span>
+                <div class="main-right">
+                    <a href="crear-gifos.html"><button class="create-btn">Crear Gifos</button></a>
+                    <div class="dropdown-menu">
+                        <button id="toggle-theme" class="dropdown-btn" onclick="toggleThemesMenu()">
+                                <div class="dropdown-text">Elegir tema</div>
+                                <div class="dropdown-arrow"><img src="img/dropdown.svg" alt=""></div>
+                        </button>
+                        <div class="dropdown-cont" id="drop-sailor">
+                            <ul class="">
+                                <li><button id="light-sailor" onclick="sailorLight()">Sailor Day</button></li>
+                                <li><button id="dark-sailor" onclick="sailorDark()">Sailor Night</button> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="mis-gifos.html"><u>M</u>is Gifos</a>
+                </div>
+            </div>
+            
+            <div class="main-bottom">
+                <div class="search-bar">
+                    <form action="">
+                        <h2>Buscar</h2>
+                        <input type="text" name="search" placeholder="Busca gifs, hashtags, temas, busca lo que quieras…" id="search" onclick="textCleaner()">
+                        <button id="btnSearch" onclick="getSearchResults(event)" class="btn-inactive"><span class="lupa" id="lupa"></span>Buscar</button>
+                    </form>  
+                    <div class="sugerencias-busqueda">
+                        <ul class="sugerencias">
+                        </ul>
+                    </div>  
+                </div>
+            </div>
+
+            <div class="result-title" id="result-title"></div>
+            
+            <div class="search-results" id="search-results">
+                
+
+            </div>
+        </div>
+    </section>        
+
+<!-- SUGERENCIAS -->
+    <section class="sugerencias">
+        <div class="container">
+            <div class="sugerencias-top">
+                <h3>Hoy te sugerimos:</h3>
+            </div>
+
+            <div class="gifs-sugerencias">
+                <div class="gif-sugerido">
+                    <div class="gif-top">
+                        <p id="sugestion-text1"></p>
+                        <img src="img/close.svg" alt="">
+                    </div>
+                    <div  class="gif-bottom">
+                        <img src="" alt="" id="random1" class="gif">
+                        <button>Ver más...</button> 
+                    </div>
+                </div>
+
+                <div class="gif-sugerido">
+                    <div class="gif-top">
+                        <p id="sugestion-text2"></p>
+                        <img src="img/close.svg" alt="">
+                    </div>
+                    <div  class="gif-bottom">
+                        <img src="" alt="" id="random2" class="gif">
+                        <button>Ver más...</button> 
+                    </div>
+                </div>
+
+                <div class="gif-sugerido">
+                    <div class="gif-top">
+                        <p id="sugestion-text3"></p>
+                        <img src="img/close.svg" alt="">
+                    </div>
+                    <div  class="gif-bottom">
+                        <img src="" alt="" id="random3" class="gif">
+                        <button>Ver más...</button> 
+                    </div>
+                </div>
+
+                <div class="gif-sugerido">
+                    <div class="gif-top">
+                        <p id="sugestion-text4"></p>
+                        <img src="img/close.svg" alt="">
+                    </div>
+                    <div  class="gif-bottom">
+                        <img src="" alt="" id="random4" class="gif">
+                        <button>Ver más...</button> 
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+<!-- TENDENCIAS -->
+    <section class="tendencias">
+        <div class="container">
+            <div class="sugerencias-top">
+                <h3>Tendencias</h3>
+            </div>
+            
+            <div class="search-results" id="search-results-container"></div>
+        </div>
+    </section>
+
+<script src="js/app.js"></script>   
+</body>
+</html>
