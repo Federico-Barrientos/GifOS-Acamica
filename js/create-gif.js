@@ -10,18 +10,35 @@ function loadTheme(){
 }
 loadTheme();
 
+
+
 const video = document.getElementById('video-capture');
+let btnBegin = document.getElementById('btn-comenzar');
+const stage1 = document.getElementById('stage1');
+const stage2= document.getElementById('stage2');
 
-
-
-
-let constraintObj = {
-    audio: false,
-    video: {
-        facingMode: "user",
-        width:832,
-    }
+function stage1ToStage2(){
+    stage1.classList.add('hidden');
+    stage2.classList.remove('hidden');
 }
+
+function testVideo(){
+    stage1ToStage2();
+    navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: true
+    }).then(stream => {
+        video.srcObject = stream;
+    }).catch(console.error)
+}
+
+// let constraintObj = {
+//     audio: false,
+//     video: {
+//         facingMode: "user",
+//         width:832,
+//     }
+// }
 //ACAMICA
 // function getStreamAndRecord () { 
 
