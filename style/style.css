@@ -531,8 +531,23 @@ header h1{
     justify-content: flex-end;
 }
 
-.gif-captura-bottom button{
+.btn-pink{
     background: var(--gradient1);
+    border: 1px solid #110038;
+    box-shadow: inset -1px -1px 0 0 #997D97, inset 1px 1px 0 0 var(--white);
+    font-family: var(--mainFont);
+    font-size: 16px;
+    color: var(--letter-color);
+    padding: 9px 26.5px;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 18px;
+    font-weight: normal;
+    margin-left: 16px;
+}
+
+.btn-white{
+    background: #FFF4FD;
     border: 1px solid #110038;
     box-shadow: inset -1px -1px 0 0 #997D97, inset 1px 1px 0 0 var(--white);
     font-family: var(--mainFont);
@@ -628,4 +643,48 @@ header h1{
 
 .video-box video{
     object-fit: cover;
+}
+
+/*STAGE 3*/
+
+.button-ready .capture-text{
+    padding: 9px 24px;
+    color: white;
+    width: 96px;
+}
+
+.button-ready .recording{
+    width: 35px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #110038;
+    justify-content: center;
+}
+
+.button-ready{
+    display: flex;
+    align-items: center;
+    padding: 0;
+    background: #FF6161;
+    border: 1px solid #110038;
+    box-shadow: inset -1px -1px 0 0 #997D97, inset 1px 1px 0 0 var(--white);
+    font-family: var(--mainFont);
+    font-size: 16px;
+    color: #110038;
+    letter-spacing: 0;
+    line-height: 18px;
+    font-weight: normal;
+    margin-bottom: 16px;
+}
+
+.recording img{
+    width: 18px;
+    height: 16.5px;
+}
+
+/*STAGE 4*/
+
+.buttons-stage4{
+    margin-bottom: 19px;
 }
