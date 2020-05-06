@@ -9,119 +9,188 @@ function loadTheme(){
 
 }
 loadTheme();
-// Botenes capturados
-// const btnCapture = document.getElementById('btn-capture');
-// const btnReady = document.getElementById('btn-ready');
+
+//LO NUEVO !
 
 
 
-const video = document.getElementById('video-capture');
 
 
-function stage1ToStage2(){
-    stage1.classList.add('hidden');
-    stage2.classList.remove('hidden');
-}
-
-// function stage2ToStage3(){
-//     document.getElementById('gif-capture-head').innerHTML = "Capturando Tu Gifo";
-//     btnCapture.classList.add('hidden');
-//     btnReady.classList.remove('hidden');
-
-// }
-
-function testVideo(){
-    stage1ToStage2();
-    // getMedia();
-    
-}
-
-let constraintObj = {
-    audio: false,
-    video: true
-}
-
-// if (navigator.mediaDevices === undefined) {
-//     navigator.mediaDevices = {};
-//     navigator.mediaDevices.getUserMedia = function(constraintObj) {
-//         let getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-//         if (!getUserMedia) {
-//             return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
-//         }
-//         return new Promise(function(resolve, reject) {
-//             getUserMedia.call(navigator, constraintObj, resolve, reject);
-//         });
-//     }
-// }else{
-//     navigator.mediaDevices.enumerateDevices()
-//     .then(devices => {
-//         devices.forEach(device=>{
-//             console.log(device.kind.toUpperCase(), device.label);
-//             //, device.deviceId
-//         })
-//     })
-//     .catch(err=>{
-//         console.log(err.name, err.message);
-//     })
-// }
-
-navigator.mediaDevices.getUserMedia(constraintObj)
-.then(function(mediaStreamObj) {
-    //connect the media stream to the first video element
-    // let video = document.querySelector('video');
-    if ("srcObject" in video) {
-        video.srcObject = mediaStreamObj;
-    } else {
-        //old version
-        video.src = window.URL.createObjectURL(mediaStreamObj);
-    }
-    
-    video.onloadedmetadata = function(ev) {
-        //show in the video element what is being captured by the webcam
-        video.play();
-    };
-    
     //add listeners for saving video/audio
-    let btnBegin = document.getElementById('btn-comenzar');
+    const start = document.getElementById('btn-comenzar');
 
-    let btnCapture = document.getElementById('btn-capture');
-    let btnReady = document.getElementById('btn-ready');
+    const record = document.getElementById('btn-capture');
+    const stop = document.getElementById('btn-ready');
     let btnStage4 = document.getElementById('buttons-stage4');
-    let vidSave = document.getElementById('recorded-video');
-    let mediaRecorder = new MediaRecorder(mediaStreamObj);
-    let chunks = [];
+    let preview = document.getElementById('preview');
+    // let mediaRecorder = new MediaRecorder(mediaStreamObj);
+    // let chunks = [];
 
 
-const stage1 = document.getElementById('stage1');
-const stage2= document.getElementById('stage2');
+    const video = document.querySelector('video');
     
+    const stage1 = document.getElementById('stage1');
+    const stage2= document.getElementById('stage2');
+    const stage3 = document.getElementById('stage3');
 
-    btnCapture.addEventListener('click', (ev)=>{
-        mediaRecorder.start();
-        console.log(mediaRecorder.state);
-        document.getElementById('gif-capture-head').innerHTML = "Capturando Tu Gifo";
-        btnCapture.classList.add('hidden');
-        btnReady.classList.remove('hidden');
-    })
-    btnReady.addEventListener('click', (ev)=>{
-        mediaRecorder.stop();
-        console.log(mediaRecorder.state);
-        btnReady.classList.add('hidden');
-        btnStage4.classList.remove('hidden');
-        video.classList.add('hidden');
-        vidSave.classList.remove('hidden');
-     });
-    mediaRecorder.ondataavailable = function(ev) {
-        chunks.push(ev.data);
+
+// Constantes útiles
+
+const apiKey = 'JQhP1sBxi7d1SKpBsMlFDJYPGUobpcpK';
+const apiBaseUrl = 'https://api.giphy.com/v1/gifs/';
+
+// Subir gifs
+
+// Elementos del HTML con los que vamos a interactuar
+
+const restart = document.getElementById('restart');
+const upload = document.getElementById('upload');
+const progressBar = document.getElementsByClassName('progress-bar-item');
+const uploadMessage = document.getElementById('upload-msg')
+const download = document.getElementById('download')
+const copy = document.getElementById('copy')
+const nav = document.getElementById('nav')
+const main  = document.getElementById('main')
+
+
+ // definimos el objeto recorder - tiene que se global para que podamos accederlo en todos los listeners
+ let recorder;
+
+ // También una variable recording para manejar el timer
+ let recording = false;
+
+// Obtener video y grabación
+
+function getStreamAndRecord () {
+   
+    // empieza a correr la cámara
+    navigator.mediaDevices.getUserMedia({
+      audio: false,
+      video: { 
+      height: { max: 480 }
     }
-    mediaRecorder.onstop = (ev)=>{
-        let blob = new Blob(chunks, { 'type' : 'gif;' });
-        chunks = [];
-        let videoURL = window.URL.createObjectURL(blob);
-        vidSave.src = videoURL;
+  })
+    .then(function(stream) {
+
+      // Usamos el stream de la cámara como source de nuestra tag <video> en el html
+      video.srcObject = stream;
+      video.play()
+       
+      record.addEventListener('click', () => {
+        recording = !recording
+
+      if (recording === true) {
+        this.disabled = true;
+        recorder = RecordRTC(stream, {
+          type: 'gif',
+          frameRate: 1,
+          quality: 10,
+          width: 360,
+          hidden: 240,
+          onGifRecordingStarted: function() {
+            console.log('started')
+          },
+        });
         
-    }
-})
-.catch(function(err) { 
-    console.log(err.name, err.message); 
+        recorder.startRecording();
+        getDuration()
+      
+        // modificamos el dom para que se note que estamos grabando
+        record.classList.add('button-recording')
+        record.innerHTML = 'Listo'
+        stop.classList.add('button-recording')
+
+        // cortamos el stream de la cámara
+        recorder.camera = stream; 
+
+    } else {
+        this.disabled = true;
+        recorder.stopRecording(stopRecordingCallback);
+        recording = false;      
+      }
+    });
+  });
+}
+
+
+function stopRecordingCallback() {
+
+  recorder.camera.stop();
+
+  // le damos el formato requerido a la data que vamos a enviar como body de nuestro 
+  // POST request
+  let form = new FormData();
+  form.append("file", recorder.getBlob(), 'test.gif');
+  
+  // upload.addEventListener('click', () => {
+  //   uploadMessage.classList.remove('hidden');
+  //   preview.classList.add('hidden')
+  //   animateProgressBar(progressBar);
+  //   uploadGif(form)
+  // })
+
+  objectURL = URL.createObjectURL(recorder.getBlob());
+  preview.src = objectURL;
+
+  // modificamos el dom para mostrar la preview, remover el timer
+  preview.classList.remove('hidden')
+  video.classList.add('hidden')
+  document.getElementById('video-record-buttons').classList.add('hidden');
+  document.getElementById('video-upload-buttons').classList.remove('hidden');
+
+
+  recorder.destroy();
+  recorder = null;
+ 
+}
+
+start.addEventListener('click', () => {
+  // cambiamos de modal pre a modal grabación
+  stage1.classList.add('hidden');
+  stage2.classList.remove('hidden');  
+  getStreamAndRecord()
 });
+
+// restart.addEventListener('click', () => {
+//   location.reload();
+//   getStreamAndRecord()
+// })
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+function getDuration() {
+  let seconds = 0;
+  let minutes = 0;
+  let timer = setInterval(() => {
+    if (recording) {
+      if (seconds < 60) {
+        if (seconds <= 9) {
+          seconds = '0' + seconds;
+        }
+        document.getElementById('timer').innerHTML=`00:00:0${minutes}:${seconds}`;
+        seconds++;
+      } else {
+        minutes++;
+        seconds = 0;
+      }
+    }
+    else {
+      clearInterval(timer)
+    }
+  }, 1000);
+} 
+
+
+
+
+
+
+
+
+
+
+
+

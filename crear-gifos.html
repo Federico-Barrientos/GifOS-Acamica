@@ -59,8 +59,8 @@
                 </p>  
             </div>
             <div class="gif-captura-bottom">
-                <button class="btn-white">Cancelar</button>
-                <button id="btn-comenzar" onclick="testVideo()" class="btn-pink">Comenzar</button>
+                <div class="btn-white">Cancelar</div>
+                <div id="btn-comenzar" class="btn-pink">Comenzar</div>
             </div>
         </div>
     </div>
@@ -73,19 +73,23 @@
         <div class="gif-videocapture">
             <div class="video-box"> 
                 <video src="#" autoplay width="832" height="434" id="video-capture"></video>
-                <video src="#" class="hidden" id="recorded-video" autoplay width="832" height="434"></video>
+                <img class="hidden" id="preview" autoplay width="832" height="434">
             </div>
             <div class="btn-container">
                 <!-- stage2 -->
-                <button class="button-capture" id="btn-capture">
+                <div class="button-capture" id="btn-capture">
                     <div class="camera"><img src="img/camera.svg" alt=""></div>
                     <div class="capture-text">Capturar</div>
-                </button>
+                </div>
                 <!-- stage3 -->
-                <button class="button-ready hidden" id="btn-ready">
-                    <div class="recording"><img src="img/recording.svg" alt=""></div>
-                    <div class="capture-text">Listo</div>
-                </button>
+                <div class="stage3 hidden" id="stage3">
+                    <div id="timer" class="timer-container"></div>
+                    <div class="button-ready" id="btn-ready">
+                        <div class="recording"><img src="img/recording.svg" alt=""></div>
+                        <div class="capture-text">Listo</div>
+                    </div>
+                </div>
+
                 <!-- stage4 -->
                 <div class="buttons-stage4 hidden" id="buttons-stage4">
                     <button class="btn-white">Repetir Captura</button>
@@ -103,20 +107,20 @@
         </div>
         <div class="gif-videocapture">
             <div class="video-box"> 
-                <video src="#" autoplay width="832" height="434" id="video-capture"></video>
+    
             </div>
             <div class="btn-container">
-                <button class="button-ready" id="btn-ready">
+                <div class="button-ready" id="btn-ready">
                     <div class="recording"><img src="img/recording.svg" alt=""></div>
                     <div class="capture-text">Listo</div>
-                </button>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 
-<script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.5.6/RecordRTC.js"></script>
 <script src="js/create-gif.js"></script>
 </body>
 </html>
