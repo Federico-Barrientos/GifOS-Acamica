@@ -811,3 +811,136 @@ header h1{
 .button-recording{
     background-color: #FF6161;
 }
+
+
+.share-modal-wrapper {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.share-modal {
+    height: 250px;
+    display: flex;
+    padding: 25px;
+    justify-content: space-between;
+}
+
+.share-button-wrapper {
+    padding-right: 20px;
+}
+
+.share-button {
+    margin: 0 20px 20px 0;
+    padding: 5px;
+    width: 150px;
+}
+
+.share-img {
+    height: 200px;
+    flex: 1;
+    overflow: hidden;
+    margin-right: 20px;
+    text-align: center;
+}
+
+.share-done {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+
+.gray {
+    filter: grayscale(1)
+}
+
+.copy-success {
+    position: absolute;
+    width: 200px;
+    height: 40px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.box{
+    border: 3px solid #FFFFFF;
+    background-color: #E6E6E6;
+    border-right: 3px solid #B4B4B4;
+    border-bottom: 3px solid #B4B4B4;
+    width: 721px;
+    height: 391px;
+}
+
+.box-header{
+    background: linear-gradient(90deg, rgba(65,128,246,1) 0%, rgba(247,201,243,1) 100%);
+    color: #FFFFFF;
+    font-weight: bold;
+    display: flex;
+    display: flex;
+    justify-content: space-between;
+    padding: 4px;
+}
+
+.share-modal-h2{
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 16px;
+}
+
+.gray {
+    filter: grayscale(1)
+}
+
+.results-thumb {
+    height: 298px;
+    width: 20vw;
+    margin-top: 2vw;
+    margin-right: 1.7vw;
+}
+
+.results-thumb:nth-child(4n+4) {
+    margin-right: 0;
+}
+.resultus-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.mis-gifos{
+    width: calc(100% - 200px);
+    margin: 0 auto;
+}
+
+.share-image{
+    width: 365px;
+    height: 191px;
+}
+
+.final-stage-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.final-stage-button{
+    background: #FFF4FD;
+    border: 1px solid #110038;
+    box-shadow: inset -1px -1px 0 0 #997D97, inset 1px 1px 0 0 #FFFFFF;
+    height: 36px;
+    width: 256px;
+    margin: 0 20px 20px 0;
+}
+
+.final-stage-button a{
+    text-decoration: none;
+    color: black;
+}
+}

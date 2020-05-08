@@ -14,9 +14,9 @@
     <title>gifOS</title>
 
 </head>
-<body>
+<body >
 <!-- HEADER -->
-<header>
+<header id="header">
     <div class="container">
         <h1>¡Bienvenidos/as a Guifos.com! ——————Donde los gifs están.////// Número de visitas: 12.765.803</h1>
     </div>
@@ -33,7 +33,7 @@
     </div>
 </section>  
 
-<section class="gif-captura">
+<section class="gif-captura" id="main-container">
     <div class="gif-captura-box" id="stage1">
         <div class="gif-captura-head">
             <h5>Crear Gifos</h5>
@@ -163,12 +163,12 @@
     <div class="share-modal" id="share-modal">
         <div class="share-img">
             <img src="" id="share-modal-preview"/></div>
-        <div>
-            <h2>Guifo creado con éxito</h2>
-            <div class="button button-inactive share-button" id="copy">Copiar enlace Guifo</div>
+        <div class="final-stage-wrapper">
+            <h2 class="share-modal-h2">Guifo creado con éxito</h2>
+            <div class="button button-inactive final-stage-button" id="copy">Copiar enlace Guifo</div>
             <span id="link-success" class="hidden">Enlace copiado!</span>
-            <div class="button button-inactive share-button"><a id="download" target="_blank">Descargar Guifo</a></div>
-            <div class="button button-inactive share-button" id="embed">Embeber Guifo</div>
+            <div class="button button-inactive final-stage-button"><a id="download" target="_blank">Descargar Guifo</a></div>
+            <!-- <div class="button button-inactive share-button" id="embed">Embeber Guifo</div> -->
         </div>
     </div>
     <div class="share-done">

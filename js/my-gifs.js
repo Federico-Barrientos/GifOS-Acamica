@@ -25,7 +25,30 @@ function getMyGifs () {
   })
   
   getMyGifs();
+    
+// THEME SWITCH
+let dropSailor = document.getElementById('drop-sailor');
+let themeValue;
 
+function toggleThemesMenu() {
+    if (dropSailor.style.display === "none") {
+      dropSailor.style.display = "block";
+    } else {
+      dropSailor.style.display = "none";
+    }
+  }
+function sailorLight(){
+        document.documentElement.setAttribute('theme', 'light');
+        themeValue = "light";
+        localStorage.setItem('themeValue', themeValue);
+        dropSailor.style.display = "none";
+    }
+function sailorDark(){
+        document.documentElement.setAttribute('theme', 'dark');
+        themeValue = "dark";
+        localStorage.setItem('themeValue', themeValue);
+        dropSailor.style.display = "none";
+    }
   // THEME LOAD
 function loadTheme(){
     let storedTheme = localStorage.getItem('themeValue');

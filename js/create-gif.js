@@ -51,7 +51,9 @@ const progressBar = document.getElementsByClassName('progress-bar-item');
 const uploadMessage = document.getElementById('upload-msg')
 const download = document.getElementById('download')
 const copy = document.getElementById('copy')
-
+const main = document.getElementById('main-container');
+const header = document.getElementById('header');
+const mainLogo = document.getElementById('main');
 
 
  // definimos el objeto recorder - tiene que se global para que podamos accederlo en todos los listeners
@@ -241,9 +243,10 @@ function getGifDetails (id) {
           /* Seteamos el dom para mostrar nuestro modal de success */    
           document.getElementById('share-modal-preview').src = data.data.images.fixed_height.url;
           const copyModal = document.getElementById('copy-success');
-          preview.classList.remove('hidden')
-          main.classList.add('gray')
-          nav.classList.add('gray')
+          preview.classList.remove('hidden');
+          main.classList.add('gray');
+          header.classList.add('gray');
+          mainLogo.classList.add('gray');
         
           download.href = gifUrl
 
