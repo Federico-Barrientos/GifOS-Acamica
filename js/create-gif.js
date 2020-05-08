@@ -19,12 +19,13 @@ loadTheme();
     //add listeners for saving video/audio
     const start = document.getElementById('btn-comenzar');
     const record = document.getElementById('btn-capture');
-    const stop = document.getElementById('btn-ready');
+    const stop = document.getElementById('stop');
     let btnStage4 = document.getElementById('buttons-stage4');
     let preview = document.getElementById('preview');
     // let mediaRecorder = new MediaRecorder(mediaStreamObj);
     // let chunks = [];
 
+    const btnContainer = document.getElementById('btn-container');
 
     const video = document.querySelector('video');
     
@@ -50,8 +51,7 @@ const progressBar = document.getElementsByClassName('progress-bar-item');
 const uploadMessage = document.getElementById('upload-msg')
 const download = document.getElementById('download')
 const copy = document.getElementById('copy')
-const nav = document.getElementById('nav')
-const main  = document.getElementById('main')
+
 
 
  // definimos el objeto recorder - tiene que se global para que podamos accederlo en todos los listeners
@@ -79,7 +79,7 @@ function getStreamAndRecord () {
        
       record.addEventListener('click', () => {
         recording = !recording
-
+        document.getElementById('camera-button').src = 'img/recording.svg'
 
       if (recording === true) {
         this.disabled = true;
@@ -98,12 +98,11 @@ function getStreamAndRecord () {
         getDuration()
       
         // modificamos el dom para que se note que estamos grabando
-        record.classList.add('button-recording')
-        record.innerHTML = 'Listo'
-        stop.classList.add('button-recording')
-        document.getElementById('timer').classList.remove('hidden')
-        
-
+        record.classList.add('button-recording');
+        record.innerHTML = 'Listo';
+        stop.classList.add('button-recording');
+        document.getElementById('timer').classList.remove('hidden');
+        btnContainer.style.justifyContent = "space-between";
         // cortamos el stream de la cámara
         recorder.camera = stream; 
 
@@ -141,6 +140,7 @@ function stopRecordingCallback() {
   video.classList.add('hidden')
   record.classList.add('hidden');
   btnStage4.classList.remove('hidden');
+  document.getElementById('video-record-buttons').classList.add('hidden');
 
 
   recorder.destroy();

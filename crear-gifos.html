@@ -76,20 +76,21 @@
                 <img class="hidden" id="preview" autoplay width="832" height="434">
               
             </div>
-            <div class="btn-container">
+            <div class="btn-container" id="btn-container">
                 <!-- stage2 -->
                 <div id="timer" class="timer-container hidden"></div>
 
-                <div class="button-capture" id="btn-capture">
-                    <div>
-                        <img src="img/camera.svg" id="btn-camera" class="camera" alt="">
+                <div class="record-button-container" id="video-record-buttons">
+                    <div class="header-dropdown button button-active" id="stop">
+                        <img src="img/camera.svg" id="camera-button">
                     </div>
-                    <div class="capture-text">Capturar</div>
+                    <div class="header-button button button-active record-button" id="btn-capture">Capturar</div>
                 </div>
-                <div class="button-ready hidden" id="btn-ready">
+
+                <!-- <div class="button-ready hidden" id="btn-ready">
                     <div class="recording"><img src="img/recording.svg" alt=""></div>
                     <div class="capture-text">Listo</div>
-                </div> 
+                </div>  -->
                 <div class="buttons-stage4 hidden" id="buttons-stage4">
                     <button class="btn-white" id="restart">Repetir Captura</button>
                     <button class="btn-pink" id="upload">Subir Gifo</button>
