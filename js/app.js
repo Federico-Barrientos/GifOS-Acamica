@@ -117,6 +117,7 @@ GifSugestion2();
 GifSugestion3();
 GifSugestion4();
 
+
 ///////////////////////////////
 
 // CONTENEDOR RESULTADOS TENDENCIAS
@@ -150,17 +151,9 @@ function renderGifItem(item) {
   div.appendChild(div2);
   div2.appendChild(p);
 
-  // if(item.title !== ""){
-  // } else{
-  //   p.innerHTML = "#animated #gif";
-  // }
 
   searchResultsContainer.append(div);
 
-  // div.addEventListener('mouseover', e =>{
-//   e.preventDefault();
-//   div2.setAttribute('display','flex');
-// })
 
   
 }
@@ -200,26 +193,12 @@ async function getSearchResults(event){
       div.appendChild(img);
       div.classList.add('gif-item');       
       }  
-
+      document.getElementById('search').value = "";
+      sugerencias.style.display = "none";
   })
 }
 
 //CREAR Y RENDERIZAR TITULO DE BUSQUEDA *WORK IN PROGRESS*
-
-// function PreSearch(){
-  
-// }
-
-// async function resultTitle(){
-//   let str = document.getElementById('search').value.trim();  
-//   let divWord = document.getElementById('result-title');
-//   let h3 = document.createElement('h3');
-//   h3.innerHTML = str;
-//   divWord.classList.remove('result-title');
-//   divWord.classList.add('result-title-active');
-//   main.appendChild(divWord);
-//   divWord.appendChild(h3);
-// }
 
 
 //SUGERENCIAS DE BUSQUEDA Y EXTRAS
@@ -255,7 +234,11 @@ searchInput.addEventListener('keyup', function(){
         const li = document.createElement('li');
         li.innerHTML = suggested.word;
         ul.appendChild(li);
-      })
+        li.onmousedown = x => {
+          search.value = li.innerText;
+          getSearchResults(event);
+      };
+       })
       })
     },1000)
 })
