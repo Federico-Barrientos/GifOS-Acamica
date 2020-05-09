@@ -221,24 +221,29 @@ searchInput.addEventListener('keyup', function(){
      boton.classList.remove('btn-active')
      boton.classList.add('btn-inactive');
     }
-    let dataMuse = 'http://api.datamuse.com/sug?s=';
+    let dataMuse = 'http://api.giphy.com/v1/tags/related/';
     if(timerFetch !== undefined){
       clearTimeout(timerFetch);
     }
     timerFetch = setTimeout(()=> {
-      dataMuse = dataMuse + input + '&max=3';
+      dataMuse = dataMuse  + input + '?api_key=' + GIPHY_KEY + '&max=3';
+      console.log(dataMuse);
       return fetch(dataMuse).then(response => response.json())
       .then(content =>{
-      content.forEach(function(suggested){
-        console.log(content);
+        for(let i = 0; i < 3; i++){
         const li = document.createElement('li');
-        li.innerHTML = suggested.word;
+        li.innerHTML = content.data[i].name;
         ul.appendChild(li);
+
         li.onmousedown = x => {
           search.value = li.innerText;
           getSearchResults(event);
+
       };
-       })
+      }
+        
+
+       
       })
     },1000)
 })
