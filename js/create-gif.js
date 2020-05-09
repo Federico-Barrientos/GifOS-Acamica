@@ -9,119 +9,293 @@ function loadTheme(){
 
 }
 loadTheme();
-// Botenes capturados
-// const btnCapture = document.getElementById('btn-capture');
-// const btnReady = document.getElementById('btn-ready');
 
-
-
-const video = document.getElementById('video-capture');
-
-
-function stage1ToStage2(){
-    stage1.classList.add('hidden');
-    stage2.classList.remove('hidden');
-}
-
-// function stage2ToStage3(){
-//     document.getElementById('gif-capture-head').innerHTML = "Capturando Tu Gifo";
-//     btnCapture.classList.add('hidden');
-//     btnReady.classList.remove('hidden');
-
-// }
-
-function testVideo(){
-    stage1ToStage2();
-    // getMedia();
-    
-}
-
-let constraintObj = {
-    audio: false,
-    video: true
-}
-
-// if (navigator.mediaDevices === undefined) {
-//     navigator.mediaDevices = {};
-//     navigator.mediaDevices.getUserMedia = function(constraintObj) {
-//         let getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-//         if (!getUserMedia) {
-//             return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
-//         }
-//         return new Promise(function(resolve, reject) {
-//             getUserMedia.call(navigator, constraintObj, resolve, reject);
-//         });
-//     }
-// }else{
-//     navigator.mediaDevices.enumerateDevices()
-//     .then(devices => {
-//         devices.forEach(device=>{
-//             console.log(device.kind.toUpperCase(), device.label);
-//             //, device.deviceId
-//         })
-//     })
-//     .catch(err=>{
-//         console.log(err.name, err.message);
-//     })
-// }
-
-navigator.mediaDevices.getUserMedia(constraintObj)
-.then(function(mediaStreamObj) {
-    //connect the media stream to the first video element
-    // let video = document.querySelector('video');
-    if ("srcObject" in video) {
-        video.srcObject = mediaStreamObj;
-    } else {
-        //old version
-        video.src = window.URL.createObjectURL(mediaStreamObj);
-    }
-    
-    video.onloadedmetadata = function(ev) {
-        //show in the video element what is being captured by the webcam
-        video.play();
-    };
-    
-    //add listeners for saving video/audio
-    let btnBegin = document.getElementById('btn-comenzar');
-
-    let btnCapture = document.getElementById('btn-capture');
-    let btnReady = document.getElementById('btn-ready');
+    // Elementos del HTML con los que vamos a interactuar
+    const cancel = document.getElementById('cancel');
+    const restart = document.getElementById('restart');
+    const upload = document.getElementById('upload');
+    const progressBar = document.getElementsByClassName('progress-bar-item');
+    const uploadMessage = document.getElementById('upload-msg')
+    const download = document.getElementById('download')
+    const copy = document.getElementById('copy')
+    const main = document.getElementById('main-container');
+    const header = document.getElementById('header');
+    const mainLogo = document.getElementById('main');
+    const start = document.getElementById('btn-comenzar');
+    const record = document.getElementById('btn-capture');
+    const stop = document.getElementById('stop');
     let btnStage4 = document.getElementById('buttons-stage4');
-    let vidSave = document.getElementById('recorded-video');
-    let mediaRecorder = new MediaRecorder(mediaStreamObj);
-    let chunks = [];
-
-
-const stage1 = document.getElementById('stage1');
-const stage2= document.getElementById('stage2');
+    let preview = document.getElementById('preview');
+    let gifCapturaHead = document.getElementById('gif-capture-head');
+    const btnContainer = document.getElementById('btn-container');
+    const video = document.querySelector('video');
     
+    const stage1 = document.getElementById('stage1');
+    const stage2= document.getElementById('stage2');
+    const stage3 = document.getElementById('stage3');
 
-    btnCapture.addEventListener('click', (ev)=>{
-        mediaRecorder.start();
-        console.log(mediaRecorder.state);
-        document.getElementById('gif-capture-head').innerHTML = "Capturando Tu Gifo";
-        btnCapture.classList.add('hidden');
-        btnReady.classList.remove('hidden');
-    })
-    btnReady.addEventListener('click', (ev)=>{
-        mediaRecorder.stop();
-        console.log(mediaRecorder.state);
-        btnReady.classList.add('hidden');
-        btnStage4.classList.remove('hidden');
-        video.classList.add('hidden');
-        vidSave.classList.remove('hidden');
-     });
-    mediaRecorder.ondataavailable = function(ev) {
-        chunks.push(ev.data);
+
+//GIPHY
+const apiKey = 'vSf42uKTUkCGczyq2WpawfwgaiEhSwBs';
+const apiBaseUrl = 'https://api.giphy.com/v1/gifs/';
+
+//RECORDRTC
+
+ let recorder;
+
+ let recording = false;
+
+
+function getStreamAndRecord () {
+   
+    navigator.mediaDevices.getUserMedia({
+      audio: false,
+      video: { 
+      height: { max: 480 }
     }
-    mediaRecorder.onstop = (ev)=>{
-        let blob = new Blob(chunks, { 'type' : 'gif;' });
-        chunks = [];
-        let videoURL = window.URL.createObjectURL(blob);
-        vidSave.src = videoURL;
+  })
+    .then(function(stream) {
+
+      video.srcObject = stream;
+      video.play()
+       
+      record.addEventListener('click', () => {
+        recording = !recording
+        document.getElementById('camera-button').src = 'img/recording.svg'
+
+      if (recording === true) {
+        this.disabled = true;
+        recorder = RecordRTC(stream, {
+          type: 'gif',
+          frameRate: 1,
+          quality: 10,
+          width: 360,
+          hidden: 240,
+          onGifRecordingStarted: function() {
+            console.log('started')
+          },
+        });
         
-    }
-})
-.catch(function(err) { 
-    console.log(err.name, err.message); 
+        recorder.startRecording();
+        getDuration()
+      
+        record.classList.add('button-recording');
+        record.innerHTML = 'Listo';
+        stop.classList.add('button-recording');
+        document.getElementById('timer').classList.remove('hidden');
+        btnContainer.style.justifyContent = "space-between";
+        gifCapturaHead.innerHTML = "Capturando Tu Guifo";
+
+        // para cortar stream de la camara
+        recorder.camera = stream; 
+
+    } else {
+        this.disabled = true;
+        recorder.stopRecording(stopRecordingCallback);
+        recording = false;      
+      }
+    });
+  });
+}
+
+
+function stopRecordingCallback() {
+
+  recorder.camera.stop();
+
+
+  let form = new FormData();
+  form.append("file", recorder.getBlob(), 'test.gif');
+  
+  upload.addEventListener('click', () => {
+    uploadMessage.classList.remove('hidden');
+    preview.classList.add('hidden');
+    animateProgressBar(progressBar);
+    uploadGif(form);
+    btnStage4.classList.add('hidden');
+    cancel.classList.remove('hidden');
+    document.getElementById('timer').classList.add('hidden');
+    btnContainer.style.justifyContent = "flex-end";
+  })
+
+  objectURL = URL.createObjectURL(recorder.getBlob());
+  preview.src = objectURL;
+
+
+  preview.classList.remove('hidden')
+  video.classList.add('hidden')
+  record.classList.add('hidden');
+  btnStage4.classList.remove('hidden');
+  document.getElementById('video-record-buttons').classList.add('hidden');
+  gifCapturaHead.innerHTML = "Vista Previa";
+
+  recorder.destroy();
+  recorder = null;
+ 
+}
+
+start.addEventListener('click', () => {
+  stage1.classList.add('hidden');
+  stage2.classList.remove('hidden');  
+  getStreamAndRecord()
 });
+
+restart.addEventListener('click', () => {
+  location.reload();
+  getStreamAndRecord()
+})
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+function getDuration() {
+  let seconds = 0;
+  let minutes = 0;
+  let timer = setInterval(() => {
+    if (recording) {
+      if (seconds < 60) {
+        if (seconds <= 9) {
+          seconds = '0' + seconds;
+        }
+        document.getElementById('timer').innerHTML=`00:00:0${minutes}:${seconds}`;
+        seconds++;
+      } else {
+        minutes++;
+        seconds = 0;
+      }
+    }
+    else {
+      clearInterval(timer)
+    }
+  }, 1000);
+} 
+
+//CANCELAR SUBIDA DE GIF
+
+let controller = new AbortController();
+let signal = controller.signal;
+
+cancel.addEventListener('click' , () => {
+    controller.abort();
+    controler = new AbortController();
+    console.log("abortito");
+    location.reload();
+})
+
+// Barra de progreso
+
+let counter = 0;
+function animateProgressBar (bar) {
+    setInterval(() => {
+      if (counter < bar.length) {
+        bar.item(counter).classList.toggle('progress-bar-item-active')
+        counter++;
+      } else {
+        counter = 0;
+      }
+    }, 200)
+} 
+
+function uploadGif(gif) {
+
+  fetch('https://upload.giphy.com/v1/gifs' + '?api_key=' + apiKey, {
+    signal: controller.signal,
+    method: 'POST',
+    body: gif,
+  }).then(res => {
+    console.log(res.status)
+    if (res.status != 200 ) {
+      uploadMessage.innerHTML = `<h3>Hubo un error subiendo tu Guifo</h3>`
+    }
+    return res.json();  
+  }).then(data => {  
+    uploadMessage.classList.add('hidden');
+    document.getElementById('share-modal-wrapper').classList.remove('hidden')
+    const gifId = data.data.id
+    getGifDetails(gifId)
+
+  })
+}
+
+function getGifDetails (id) {
+
+  fetch(apiBaseUrl + id + '?api_key=' + apiKey) 
+      .then((response) => {
+         return response.json()
+      }).then(data => {
+          const gifUrl = data.data.url
+          localStorage.setItem('gif' + data.data.id, JSON.stringify(data));
+
+          document.getElementById('share-modal-preview').src = data.data.images.fixed_height.url;
+          const copyModal = document.getElementById('copy-success');
+          preview.classList.remove('hidden');
+          main.classList.add('gray');
+          header.classList.add('gray');
+          mainLogo.classList.add('gray');
+        
+          download.href = gifUrl
+
+          copy.addEventListener('click', async () => {
+            await navigator.clipboard.writeText(gifUrl);
+            copyModal.innerHTML = 'Link copiado con éxito!'
+            copyModal.classList.remove('hidden')
+            setTimeout(() => { copyModal.classList.add('hidden') }, 1500);
+          })
+
+          document.getElementById('embed').addEventListener('click', async () => {
+            await navigator.clipboard.writeText(data.data.embed_url)
+            copyModal.innerHTML = 'Código copiado con éxito!'
+            copyModal.classList.remove('hidden')
+            setTimeout(() => { copyModal.classList.add('hidden') }, 500);
+          })
+
+          document.getElementById('finish').addEventListener('click', () => {
+            location.reload();
+          })
+      })
+      .catch((error) => {
+          return error
+      })
+}
+
+function getMyGifs () {
+  let items = [];
+  for (var i = 0; i < localStorage.length; i++){
+    let item = localStorage.getItem(localStorage.key(i))
+    console.log(item)
+    if (item.includes('data')) {
+      itemJson = JSON.parse(item)
+      items.push(itemJson.data.images.fixed_height.url)
+      console.log(items)
+    }
+  }
+  return items
+}
+
+window.addEventListener('load', () => {
+  const localGifs = getMyGifs()
+  console.log(localGifs)
+  localGifs.forEach(item => {
+    const img = document.createElement('img')
+    img.src = item;
+    img.classList.add('results-thumb');
+    document.getElementById('results').appendChild(img);
+  })
+})
+
+getMyGifs()
+
+document.getElementById('share-done').addEventListener('click', () => {
+  location.reload();
+})
+
+
+
+
+
+
+
+
+
