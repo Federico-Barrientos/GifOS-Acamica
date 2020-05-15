@@ -359,16 +359,15 @@ header h1{
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 18px;
+    text-decoration: none;
 }
 
-.gif-sugerido .gif-bottom div a{
-font-size: 14px;
-color: #FFFFFF;
-letter-spacing: 0;
-text-align: center;
-line-height: 18px;
-text-decoration: none;
-}
+
 
 .gif-sugerido .gif-bottom div:hover{
     border: 1px dotted black;

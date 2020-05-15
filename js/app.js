@@ -45,6 +45,7 @@ const GIPHY_API_URL = 'https://api.giphy.com/v1/gifs/';
 
 async function GifSugestion1(){
   let url = GIPHY_API_URL + "random?api_key=" + GIPHY_KEY;
+  let verMas1 = document.getElementById('verMas1');
   return fetch(url).then(response => response.json())
   .then(content =>{
     // console.log(content.content);
@@ -53,14 +54,26 @@ async function GifSugestion1(){
     img.src = content.data.images.fixed_height.url;
     if(content.data.title == ""){
       p.innerHTML = "#Animated #GIF";
+      verMas1.onclick = x => {
+        search.value = "animated gif";
+        getSearchResults(event);
+  
+    };
     } else{
       p.innerHTML = content.data.title.replace(/(^|\s+)/g, "$1#");
+      verMas1.onclick = x => {
+        search.value = content.data.title;
+        getSearchResults(event);
+      };
     }
+
+
   })
 }
 
 async function GifSugestion2(){
   let url = GIPHY_API_URL + "random?api_key=" + GIPHY_KEY;
+  let verMas2 = document.getElementById('verMas2');
   return fetch(url).then(response => response.json())
   .then(content =>{
     // console.log(content.data);
@@ -69,14 +82,24 @@ async function GifSugestion2(){
     img.src = content.data.images.fixed_height.url;
     if(content.data.title == ""){
       p.innerHTML = "#Animated #GIF";
+      verMas1.onclick = x => {
+        search.value = "animated gif";
+        getSearchResults(event);
+  
+    };
     } else{
-      p.innerHTML = content.data.title.replace(/(^|\s+)/g, "$1#");;
+      p.innerHTML = content.data.title.replace(/(^|\s+)/g, "$1#");
+      verMas2.onclick = x => {
+        search.value = content.data.title;
+        getSearchResults(event);
+      };
     }
   })
 }
 
 async function GifSugestion3(){
   let url = GIPHY_API_URL + "random?api_key=" + GIPHY_KEY;
+  let verMas3 = document.getElementById('verMas3');
   return fetch(url).then(response => response.json())
   .then(content =>{
     // console.log(content.data);
@@ -85,14 +108,24 @@ async function GifSugestion3(){
     img.src = content.data.images.fixed_height.url;
     if(content.data.title == ""){
       p.innerHTML = "#Animated #GIF";
+      verMas1.onclick = x => {
+        search.value = "animated gif";
+        getSearchResults(event);
+  
+    };
     } else{
-      p.innerHTML = content.data.title.replace(/(^|\s+)/g, "$1#");;
+      p.innerHTML = content.data.title.replace(/(^|\s+)/g, "$1#");
+      verMas3.onclick = x => {
+        search.value = content.data.title;
+        getSearchResults(event);
+      };
     }
   })
 }
 
 async function GifSugestion4(){
   let url = GIPHY_API_URL + "random?api_key=" + GIPHY_KEY;
+  let verMas4 = document.getElementById('verMas4');
   return fetch(url).then(response => response.json())
   .then(content =>{
     // console.log(content.data);
@@ -101,8 +134,17 @@ async function GifSugestion4(){
     img.src = content.data.images.fixed_height.url;
     if(content.data.title == ""){
       p.innerHTML = "#Animated #GIF";
+      verMas1.onclick = x => {
+        search.value = "animated gif";
+        getSearchResults(event);
+  
+    };
     } else{
-      p.innerHTML = content.data.title.replace(/(^|\s+)/g, "$1#");;
+      p.innerHTML = content.data.title.replace(/(^|\s+)/g, "$1#");
+      verMas4.onclick = x => {
+        search.value = content.data.title;
+        getSearchResults(event);
+      };
     }
     
 
