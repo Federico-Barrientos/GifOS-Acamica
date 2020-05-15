@@ -49,7 +49,6 @@ async function GifSugestion1(){
   .then(content =>{
     // console.log(content.content);
     let p = document.getElementById('sugestion-text1');
-    let src = content.data.images.fixed_height.url;
     let img = document.getElementById('random1');
     img.src = content.data.images.fixed_height.url;
     if(content.data.title == ""){
@@ -66,7 +65,6 @@ async function GifSugestion2(){
   .then(content =>{
     // console.log(content.data);
     let p = document.getElementById('sugestion-text2');
-    let src = content.data.images.fixed_height.url;
     let img = document.getElementById('random2');
     img.src = content.data.images.fixed_height.url;
     if(content.data.title == ""){
@@ -83,7 +81,6 @@ async function GifSugestion3(){
   .then(content =>{
     // console.log(content.data);
     let p = document.getElementById('sugestion-text3');
-    let src = content.data.images.fixed_height.url;
     let img = document.getElementById('random3');
     img.src = content.data.images.fixed_height.url;
     if(content.data.title == ""){
@@ -100,7 +97,6 @@ async function GifSugestion4(){
   .then(content =>{
     // console.log(content.data);
     let p = document.getElementById('sugestion-text4');
-    let src = content.data.images.fixed_height.url;
     let img = document.getElementById('random4');
     img.src = content.data.images.fixed_height.url;
     if(content.data.title == ""){
@@ -166,6 +162,9 @@ getTrends(ammount).then(response => renderSearchResults(response));
 
 // CONTENEDOR DE RESULTADOS DE BUSQUEDA
 const searchResults = document.getElementById('search-results');
+const searchTitle = document.getElementById('result-title');
+const searchHistory = [];
+const searchHistoryCont = document.getElementById('search-history');
 
 function searchCleaner(){
   if(searchResults !== ''){
@@ -179,26 +178,61 @@ function searchCleaner(){
 async function getSearchResults(event){
   event.preventDefault();
   searchCleaner();
+  searchHistoryCont.innerHTML = "";
   let url = `${GIPHY_API_URL}search?api_key=${GIPHY_KEY}&limit=11&q=`;
   let str = document.getElementById('search').value.trim();
   url = url.concat(str);
-  return fetch(url).then(response => response.json())
-  .then(content =>{
-        // resultTitle();
-     for (let i = 0; i < 10; i++) { 
-      let div = document.createElement('div');
-      let img = document.createElement('img');
-      img.src = content.data[i].images.fixed_height.url;
-      searchResults.appendChild(div);
-      div.appendChild(img);
-      div.classList.add('gif-item');       
-      }  
-      document.getElementById('search').value = "";
-      sugerencias.style.display = "none";
-  })
+  if(str !== ""){
+    return fetch(url).then(response => response.json())
+    .then(content =>{
+       for (let i = 0; i < 10; i++) { 
+        let div = document.createElement('div');
+        let img = document.createElement('img');
+        let div2 = document.createElement('div');
+        let p = document.createElement('p');
+        img.src = content.data[i].images.fixed_height.url;
+        p.innerHTML = content.data[i].title.replace(/(^|\s+)/g, "$1#");
+        searchResults.appendChild(div);
+        div.appendChild(img);
+        div2.classList.add('tendencia-title');
+        div.appendChild(div2);
+        div2.appendChild(p);
+        div.classList.add('gif-item');       
+        }  
+        document.getElementById('search').value = "";
+        sugerencias.style.display = "none";
+        boton.classList.remove('btn-active');
+        boton.classList.add('btn-inactive');
+        searchTitle.classList.remove('hidden');
+        searchTitle.innerHTML = str + "(resultados)";
+        //agregamos la busqueda a nuestro array
+        searchHistory.unshift(str);
+        //despues de la primera busqueda dejamos visible el contenedor
+        searchHistoryCont.classList.remove('hidden');
+        //nos aseguramos de que siempre queden los ultimos 3 resultados de busqueda
+        for(let i = 0; i < 3; i++){
+          if(searchHistory[i] === undefined){
+            return false;
+          }else {
+            let div = document.createElement('div');
+            div.innerHTML = searchHistory[i];
+            div.classList.add('history-item');
+            searchHistoryCont.appendChild(div);
+          }
+        }
+
+
+        
+    })
+  }
+
 }
 
-//CREAR Y RENDERIZAR TITULO DE BUSQUEDA *WORK IN PROGRESS*
+
+
+
+
+
 
 
 //SUGERENCIAS DE BUSQUEDA Y EXTRAS
@@ -225,27 +259,27 @@ searchInput.addEventListener('keyup', function(){
     if(timerFetch !== undefined){
       clearTimeout(timerFetch);
     }
-    timerFetch = setTimeout(()=> {
-      dataMuse = dataMuse  + input + '?api_key=' + GIPHY_KEY + '&max=3';
-      console.log(dataMuse);
-      return fetch(dataMuse).then(response => response.json())
-      .then(content =>{
-        for(let i = 0; i < 3; i++){
-        const li = document.createElement('li');
-        li.innerHTML = content.data[i].name;
-        ul.appendChild(li);
+    if(input !== ""){
+      timerFetch = setTimeout(()=> {
+        dataMuse = dataMuse  + input + '?api_key=' + GIPHY_KEY + '&max=3';
+        console.log(dataMuse);
+        return fetch(dataMuse).then(response => response.json())
+        .then(content =>{
+          for(let i = 0; i < 3; i++){
+          const li = document.createElement('li');
+          li.innerHTML = content.data[i].name;
+          ul.appendChild(li);
+  
+          li.onmousedown = x => {
+            search.value = li.innerText;
+            getSearchResults(event);
+  
+        };
+        }   
+        })
+      },1000)
+    }
 
-        li.onmousedown = x => {
-          search.value = li.innerText;
-          getSearchResults(event);
-
-      };
-      }
-        
-
-       
-      })
-    },1000)
 })
 
 

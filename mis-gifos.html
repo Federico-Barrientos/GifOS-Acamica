@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" theme="light">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,17 +24,17 @@
     </header>
 
 <!-- MAIN -->
-    <section class="main">
+    <div class="main">
         <div class="container">
             <div class="main-top">          
                 <a href="index.html" class="gifos-logo" id="gif-logo"></a>
                 <div class="main-right">
-                    <a href="crear-gifos.html"><button class="create-btn">Crear Gifos</button></a>
+                    <a href="crear-gifos.html"><div class="create-btn">Crear Gifos</div></a>
                     <div class="dropdown-menu">
-                        <button id="toggle-theme" class="dropdown-btn" onclick="toggleThemesMenu()">
+                        <div id="toggle-theme" class="dropdown-btn" onclick="toggleThemesMenu()">
                                 <div class="dropdown-text">Elegir tema</div>
                                 <div class="dropdown-arrow"><img src="img/dropdown.svg" alt="dropdown"></div>
-                        </button>
+                        </div>
                         <div class="dropdown-cont" id="drop-sailor">
                             <ul class="">
                                 <li><button id="light-sailor" onclick="sailorLight()">Sailor Day</button></li>
@@ -46,15 +46,15 @@
                 </div>
             </div>
         </div>
-    </section>
-    <section class="mis-gifos">
+    </div>
+    <div class="mis-gifos">
         <div class="misgifos-container">
             <div class="results-wrapper" id="gallery">
                 <div class="text-box">Mis Guifos</div>
                 <div class="results-container" id="results"></div>
             </div>
         </div>
-    </section>
+    </div>
 
 
 <script src="js/my-gifs.js"></script>

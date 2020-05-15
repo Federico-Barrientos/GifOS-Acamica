@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" theme="">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,12 +28,12 @@
             <div class="main-top">
                 <span class="gifos-logo" id="gif-logo" ></span>
                 <div class="main-right">
-                    <a href="crear-gifos.html"><button class="create-btn">Crear Gifos</button></a>
+                    <a href="crear-gifos.html"><div class="create-btn">Crear Gifos</div></a>
                     <div class="dropdown-menu">
-                        <button id="toggle-theme" class="dropdown-btn" onclick="toggleThemesMenu()">
+                        <div id="toggle-theme" class="dropdown-btn" onclick="toggleThemesMenu()">
                                 <div class="dropdown-text">Elegir tema</div>
                                 <div class="dropdown-arrow"><img src="img/dropdown.svg" alt="arrow"></div>
-                        </button>
+                        </div>
                         <div class="dropdown-cont" id="drop-sailor">
                             <ul>
                                 <li><button id="light-sailor" onclick="sailorLight()">Sailor Day</button></li>
@@ -59,7 +59,9 @@
                 </div>
             </div>
 
-            <div class="result-title" id="result-title"></div>
+            <div class="search-history hidden" id="search-history"></div>
+
+            <div class="result-title hidden" id="result-title"></div>
             
             <div class="search-results" id="search-results">
                 
@@ -82,8 +84,8 @@
                         <img src="img/close.svg" alt="close">
                     </div>
                     <div  class="gif-bottom">
-                        <img src="" alt="sugerencia" id="random1" class="gif">
-                        <a href="https://giphy.com/" target="_blank"><button>Ver más...</button></a>
+                        <img src="img/loading.gif" alt="sugerencia" id="random1" class="gif">
+                        <div><a href="https://giphy.com/" target="_blank">Ver más...</a></div>
                     </div>
                 </div>
 
@@ -93,8 +95,8 @@
                         <img src="img/close.svg" alt="close">
                     </div>
                     <div  class="gif-bottom">
-                        <img src="" alt="sugerencia" id="random2" class="gif">
-                        <a href="https://giphy.com/" target="_blank"><button>Ver más...</button></a>
+                        <img src="img/loading.gif" alt="sugerencia" id="random2" class="gif">
+                        <div><a href="https://giphy.com/" target="_blank">Ver más...</a></div>
                     </div>
                 </div>
 
@@ -104,8 +106,8 @@
                         <img src="img/close.svg" alt="close">
                     </div>
                     <div  class="gif-bottom">
-                        <img src="" alt="sugerencia" id="random3" class="gif">
-                        <a href="https://giphy.com/" target="_blank"><button>Ver más...</button></a>
+                        <img src="img/loading.gif" alt="sugerencia" id="random3" class="gif">
+                        <div><a href="https://giphy.com/" target="_blank">Ver más...</a></div>
                     </div>
                 </div>
 
@@ -115,8 +117,8 @@
                         <img src="img/close.svg" alt="close">
                     </div>
                     <div  class="gif-bottom">
-                        <img src="" alt="sugerencia" id="random4" class="gif">
-                        <a href="https://giphy.com/" target="_blank"><button>Ver más...</button></a>
+                        <img src="img/loading.gif" alt="sugerencia" id="random4" class="gif">
+                        <div><a href="https://giphy.com/" target="_blank">Ver más...</a></div>
                     </div>
                 </div>
 

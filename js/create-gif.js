@@ -10,7 +10,7 @@ function loadTheme(){
 }
 loadTheme();
 
-    // Elementos del HTML con los que vamos a interactuar
+
     const cancel = document.getElementById('cancel');
     const restart = document.getElementById('restart');
     const upload = document.getElementById('upload');
@@ -116,6 +116,7 @@ function stopRecordingCallback() {
     cancel.classList.remove('hidden');
     document.getElementById('timer').classList.add('hidden');
     btnContainer.style.justifyContent = "flex-end";
+    gifCapturaHead.innerHTML = "Subiendo Gifo";
   })
 
   objectURL = URL.createObjectURL(recorder.getBlob());
