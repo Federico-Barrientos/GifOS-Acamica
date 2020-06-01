@@ -297,7 +297,7 @@ searchInput.addEventListener('keyup', function(){
      boton.classList.remove('btn-active')
      boton.classList.add('btn-inactive');
     }
-    let dataMuse = 'http://api.giphy.com/v1/tags/related/';
+    let dataMuse = 'https://api.giphy.com/v1/tags/related/';
     if(timerFetch !== undefined){
       clearTimeout(timerFetch);
     }
