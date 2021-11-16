@@ -244,9 +244,8 @@ header h1{
     flex-direction: column;
     justify-content: space-around;
     display: none;
-    width: 83.75%;
-    position: absolute;
-    top: 213px;
+    position: relative;
+    top: -14px;
 }
 
 .main .sugerencias-busqueda li{
